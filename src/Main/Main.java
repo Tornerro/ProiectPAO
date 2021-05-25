@@ -5,6 +5,7 @@ import Model.Bautura;
 import Model.Client;
 import Model.Mancare;
 import Service.Service;
+import Service.AuditService;
 import Model.Tigari;
 
 import java.util.Scanner;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        AuditService auditService = AuditService.getInstance();
         Service service = new Service();
         Scanner scanner = new Scanner(System.in);
         String meniu = """
@@ -34,7 +36,10 @@ public class Main {
             int optiune = Integer.parseInt(scanner.nextLine());
 
             switch(optiune){
-                case 1 -> service.afisareMeniu();
+                case 1 -> {
+                    service.afisareMeniu();
+                    auditService.logNewAction("Afisare meniu");
+                }
                 case 2 -> {
                     System.out.println("""
                             Alegeti tipul de produs:
@@ -79,6 +84,7 @@ public class Main {
                     else {
                         System.out.println("Optiune invalida!!!");
                     }
+                    auditService.logNewAction("Produs adaugat in meniu");
                 }
                 case 3 -> {
                     System.out.println("""
@@ -108,6 +114,7 @@ public class Main {
                     else{
                         System.out.println("Tip invalid!");
                     }
+                    auditService.logNewAction("Produs eliminat din meniu");
                 }
                 case 4 -> {
                     System.out.println("Introdu numele, prenumele si varsta, postul si salariul angajatului:");
@@ -121,6 +128,7 @@ public class Main {
                             Integer.parseInt(fragments[4])
                     );
                     service.addAngajat(angajat);
+                    auditService.logNewAction("Angajat adaugat");
                 }
                 case 5 -> {
                     System.out.println(
@@ -135,26 +143,40 @@ public class Main {
                     );
 
                     service.actiuniClient(client);
+                    auditService.logNewAction("Client adaugat");
 
                 }
                 case 6 -> {
                     service.afisareAngajati();
+                    auditService.logNewAction("Afisare angajati");
                 }
                 case 7 -> {
                     service.listaAngajati();
                     System.out.println("Introdu numarul angajatului eliminat");
                     int nr = Integer.parseInt(scanner.nextLine());
                     service.elimAngajat(nr);
+                    auditService.logNewAction("Angajat eliminat");
                 }
-                case 8 -> service.afiseazaBonuri();
-                case 9 -> System.out.println(service.ceaMaiMareComanda());
-                case 10 -> service.sumaBonuri();
+                case 8 -> {
+                    service.afiseazaBonuri();
+                    auditService.logNewAction("Afisare bonuri");
+                }
+                case 9 -> {
+                    System.out.println(service.ceaMaiMareComanda());
+                    auditService.logNewAction("Afisare cea mai mare comanda");
+                }
+                case 10 -> {
+                    service.sumaBonuri();
+                    auditService.logNewAction("Afisare suma bonuri");
+                }
                 case 0 -> {
                     System.out.println("Oprire program...");
+                    auditService.logNewAction("Oprire program");
                     System.exit(0);
                 }
                 default -> {
                     System.out.println("Optiune invalida! Alege alta optiune!");
+                    auditService.logNewAction("Optiune invalida");
                 }
             }
         }

@@ -7,16 +7,20 @@ import Model.Client;
 import Model.Mancare;
 import Model.Produs;
 import Model.Tigari;
+
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Service {
-    private static Bautura[] bauturi = new Bautura[0];
-    private static Mancare[] mancare = new Mancare[0];
-    private static Tigari[] tigari = new Tigari[0];
-    private static Angajat[] angajati = new Angajat[0];
-    private static Bon[] bonuri = new Bon[0];
+    private static AngajatService angajatService = AngajatService.getInstance();
+    private static List<Bautura> bauturi = new ArrayList<>();
+    private static List<Mancare> mancare = new ArrayList<>();
+    private static List<Tigari> tigari = new ArrayList<>();
+    private static List<Angajat> angajati = angajatService.getAngajati();
+    private static List<Bon> bonuri = new ArrayList<>();
 
     Scanner scanner = new Scanner(System.in);
 
@@ -36,26 +40,17 @@ public class Service {
     }
 
     public void addMancare(Mancare m){
-        Mancare[] temp = new Mancare[mancare.length + 1];
-        System.arraycopy(mancare, 0, temp, 0, mancare.length);
-        temp[mancare.length] = m;
-        mancare = temp;
+        mancare.add(m);
         System.out.println("Mancare adaugata.");
     }
 
     public void addBautura(Bautura b){
-        Bautura[] temp = new Bautura[bauturi.length + 1];
-        System.arraycopy(bauturi, 0, temp, 0, bauturi.length);
-        temp[bauturi.length] = b;
-        bauturi = temp;
+        bauturi.add(b);
         System.out.println("Bautura adaugata.");
     }
 
     public void addTigari(Tigari t){
-        Tigari[] temp = new Tigari[tigari.length + 1];
-        System.arraycopy(tigari, 0, temp, 0, tigari.length);
-        temp[tigari.length] = t;
-        tigari = temp;
+        tigari.add(t);
         System.out.println("Tigari adaugate.");
     }
 
@@ -84,38 +79,17 @@ public class Service {
     }
 
     public void elimMancare(int nr){
-        Mancare[] temp = new Mancare[mancare.length - 1];
-        int k = 0;
-        for(Mancare m : mancare){
-            if(k < nr)temp[k] = m;
-            else if(k>nr)temp[k-1] = m;
-            k ++;
-        }
-        mancare = temp;
+        mancare.remove(nr);
         System.out.println("Mancare eliminata din meniu.");
     }
 
     public void elimBautura(int nr){
-        Bautura[] temp = new Bautura[bauturi.length - 1];
-        int k = 0;
-        for(Bautura b : bauturi){
-            if(k < nr)temp[k] = b;
-            else if(k>nr)temp[k-1] = b;
-            k ++;
-        }
-        bauturi = temp;
+        bauturi.remove(nr);
         System.out.println("Bautura eliminata din meniu.");
     }
 
     public void elimTigari(int nr){
-        Tigari[] temp = new Tigari[tigari.length - 1];
-        int k = 0;
-        for(Tigari t : tigari){
-            if(k < nr)temp[k] = t;
-            else if(k>nr)temp[k-1] = t;
-            k ++;
-        }
-        tigari = temp;
+        tigari.remove(nr);
         System.out.println("Tigari eliminate din meniu.");
     }
 
@@ -126,10 +100,8 @@ public class Service {
     }
 
     public void addAngajat(Angajat a){
-        Angajat[] temp = new Angajat[angajati.length + 1];
-        System.arraycopy(angajati, 0, temp, 0, angajati.length);
-        temp[angajati.length] = a;
-        angajati = temp;
+        angajati.add(a);
+        angajatService.addAngajat(a);
         System.out.println("Angajat adaugat.");
     }
 
@@ -142,14 +114,12 @@ public class Service {
     }
 
     public void elimAngajat(int nr){
-        Angajat[] temp = new Angajat[angajati.length - 1];
-        int k = 0;
-        for(Angajat a : angajati){
-            if(k < nr)temp[k] = a;
-            else if(k>nr)temp[k-1] = a;
-            k ++;
+        angajati.remove(nr);
+        try {
+            angajatService.updateCSV(angajati);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        angajati = temp;
         System.out.println("Angajat eliminat.");
     }
 
@@ -176,32 +146,29 @@ public class Service {
                     afiseazaMancare();
                     System.out.println("Introdu numarul mancarii alese");
                     int nr = Integer.parseInt(scanner.nextLine());
-                    lista_p.add(mancare[nr]);
-                    suma_totala += mancare[nr].getPret();
+                    lista_p.add(mancare.get(nr));
+                    suma_totala += mancare.get(nr).getPret();
                 }
                 else if(tip == 2){
                     afiseazaBauturi();
                     System.out.println("Introdu numarul bauturii alese");
                     int nr = Integer.parseInt(scanner.nextLine());
-                    lista_p.add(bauturi[nr]);
-                    suma_totala += bauturi[nr].getPret();
+                    lista_p.add(bauturi.get(nr));
+                    suma_totala += bauturi.get(nr).getPret();
                 }
                 else if (tip == 3) {
                     afiseazaTigari();
                     System.out.println("Introdu numarul tigarilor alese");
                     int nr = Integer.parseInt(scanner.nextLine());
-                    lista_p.add(tigari[nr]);
-                    suma_totala += tigari[nr].getPret();
+                    lista_p.add(tigari.get(nr));
+                    suma_totala += tigari.get(nr).getPret();
                 } else {
                     System.out.println("Tip invalid!!!");
                 }
             }
             else if (opt == 2) {
                 Bon b = new Bon(c, lista_p, suma_totala);
-                Bon[] temp = new Bon[bonuri.length + 1];
-                System.arraycopy(bonuri, 0, temp, 0, bonuri.length);
-                temp[bonuri.length] = b;
-                bonuri = temp;
+                bonuri.add(b);
                 System.out.println("Bon adaugat.");
                 ok = 0;
             } else {
@@ -219,10 +186,10 @@ public class Service {
 
     public Bon ceaMaiMareComanda(){
         int k = 0;
-        for(int i = 1; i < bonuri.length; ++i){
-            if(bonuri[i].getTotal_plata() > bonuri[k].getTotal_plata())k = i;
+        for(int i = 1; i < bonuri.size(); ++i){
+            if(bonuri.get(i).getTotal_plata() > bonuri.get(k).getTotal_plata()) k = i;
         }
-        return bonuri[k];
+        return bonuri.get(k);
     }
 
     public void sumaBonuri(){
