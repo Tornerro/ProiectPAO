@@ -20,8 +20,7 @@ public class Tigari extends Produs {
 
     @Override
     public String toString() {
-        return "Tigari{" +
-                "brand='" + brand + '\'' +
-                '}';
+        return brand + ' ' + this.getNume() +
+                "(pret=" + this.getPret() + ")";
     }
 }

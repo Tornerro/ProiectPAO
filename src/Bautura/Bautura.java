@@ -21,8 +21,8 @@ public class Bautura extends Produs {
 
     @Override
     public String toString() {
-        return "Bautura{" +
-                "alcoolemie=" + alcoolemie +
-                '}';
+        return this.getNume() +
+                "(pret=" + this.getPret() +
+                ", alcoolemie=" + alcoolemie +")";
     }
 }

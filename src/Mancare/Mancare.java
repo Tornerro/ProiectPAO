@@ -32,9 +32,9 @@ public class Mancare extends Produs {
 
     @Override
     public String toString() {
-        return "Mancare{" +
-                "categorie='" + categorie + '\'' +
-                ", alergeni=" + alergeni +
-                '}';
+        return this.getNume()+
+                "(pret=" + this.getPret().intValue() +
+                ", categorie=" + categorie.toString() +
+                ", alergeni=" + alergeni +")";
     }
 }

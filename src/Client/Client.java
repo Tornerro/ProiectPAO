@@ -21,8 +21,7 @@ public class Client extends Persoana {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "tip_plata='" + tip_plata + '\'' +
-                '}';
+        return "Nume client =" +this.getNume() + ' ' + this.getPrenume() +
+                ", Tip plata=" + tip_plata;
     }
 }

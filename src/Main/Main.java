@@ -43,7 +43,7 @@ public class Main {
                             3) Tigari""");
                     int tip = Integer.parseInt(scanner.nextLine());
                     if(tip == 1){
-                        System.out.println("Introdu numele, pretul, categoria si daca mancarea are alergeni(0 sau 1");
+                        System.out.println("Introdu numele, pretul, categoria si daca mancarea are alergeni(0 sau 1)");
                         String dataMancare = scanner.nextLine();
                         String[] fragments = dataMancare.split(" ");
                         Mancare mancare = new Mancare(
@@ -124,7 +124,7 @@ public class Main {
                 }
                 case 5 -> {
                     System.out.println(
-                            "Introdu numele, prenumele, varsta si tipul de plata a clientului:");
+                            "Introdu numele, prenumele, varsta si tipul de plata a clientului(cash sau card):");
                     String dataClient = scanner.nextLine();
                     String[] fragments = dataClient.split(" ");
                     Client client = new Client(

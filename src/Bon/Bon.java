@@ -43,10 +43,8 @@ public class Bon {
 
     @Override
     public String toString() {
-        return "Bon{" +
-                "client=" + client +
+        return  client +
                 ", produse_cumparate=" + produse_cumparate +
-                ", total_plata=" + total_plata +
-                '}';
+                ", total_plata=" + total_plata;
     }
 }
