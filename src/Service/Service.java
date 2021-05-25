@@ -1,12 +1,12 @@
 package Service;
 
-import Angajat.Angajat;
-import Bautura.Bautura;
-import Bon.Bon;
-import Client.Client;
-import Mancare.Mancare;
-import Produs.Produs;
-import Tigari.Tigari;
+import Model.Angajat;
+import Model.Bautura;
+import Model.Bon;
+import Model.Client;
+import Model.Mancare;
+import Model.Produs;
+import Model.Tigari;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

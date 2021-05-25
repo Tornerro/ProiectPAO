@@ -1,6 +1,4 @@
-package Tigari;
-
-import Produs.Produs;
+package Model;
 
 public class Tigari extends Produs {
     private String brand;

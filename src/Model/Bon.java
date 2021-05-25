@@ -1,8 +1,8 @@
-package Bon;
+package Model;
 
-import Client.Client;
-import Produs.Produs;
-import java.util.Date;
+import Model.Client;
+import Model.Produs;
+
 import java.util.List;
 
 public class Bon {

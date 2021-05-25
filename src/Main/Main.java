@@ -1,12 +1,12 @@
 package Main;
 
-import Angajat.Angajat;
-import Bautura.Bautura;
-import Client.Client;
-import Mancare.Mancare;
+import Model.Angajat;
+import Model.Bautura;
+import Model.Client;
+import Model.Mancare;
 import Service.Service;
-import Tigari.Tigari;
-import java.sql.SQLOutput;
+import Model.Tigari;
+
 import java.util.Scanner;
 
 public class Main {
@@ -43,7 +43,7 @@ public class Main {
                             3) Tigari""");
                     int tip = Integer.parseInt(scanner.nextLine());
                     if(tip == 1){
-                        System.out.println("Introdu numele, pretul, categoria si daca mancarea are alergeni(0 sau 1)");
+                        System.out.println("Introdu numele, pretul, categoria si daca mancarea are alergeni(true sau false)");
                         String dataMancare = scanner.nextLine();
                         String[] fragments = dataMancare.split(" ");
                         Mancare mancare = new Mancare(

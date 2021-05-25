@@ -1,6 +1,4 @@
-package Bautura;
-
-import Produs.Produs;
+package Model;
 
 public class Bautura extends Produs {
     private Float alcoolemie;

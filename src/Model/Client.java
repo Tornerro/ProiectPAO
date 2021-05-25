@@ -1,6 +1,6 @@
-package Client;
+package Model;
 
-import Persoana.Persoana;
+import Model.Persoana;
 
 public class Client extends Persoana {
 

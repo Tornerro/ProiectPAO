@@ -1,6 +1,4 @@
-package Mancare;
-
-import Produs.Produs;
+package Model;
 
 public class Mancare extends Produs {
     private String categorie;

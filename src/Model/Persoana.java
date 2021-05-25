@@ -1,6 +1,6 @@
-package Persoana;
+package Model;
 
-public class Persoana {
+public abstract class Persoana {
     private String nume;
     private String prenume;
     private Integer varsta;

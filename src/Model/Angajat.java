@@ -1,6 +1,4 @@
-package Angajat;
-
-import Persoana.Persoana;
+package Model;
 
 public class Angajat extends Persoana {
     private String post;
