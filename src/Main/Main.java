@@ -21,15 +21,17 @@ public class Main {
                 0) Opreste programul
                 1) Afisare meniu
                 2) Adauga un produs in meniu
-                3) Elimina un produs din meniu
-                4) Adauga angajat
-                5) Adauga client
-                6) Afiseaza toti angajatii
-                7) Elimina un angajat
-                8) Afiseaza toate bonurile
-                9) Afiseaza cea mai mare comanda
-                10) Afiseaza suma totala a bonurilor""";
+                3) Modifica pretul unui produs
+                4) Elimina un produs din meniu
+                5) Adauga angajat
+                6) Adauga client
+                7) Afiseaza toti angajatii
+                8) Elimina un angajat
+                9) Afiseaza toate bonurile
+                10) Afiseaza cea mai mare comanda
+                11) Afiseaza suma totala a bonurilor""";
 
+        auditService.logNewAction("Pornire program");
 
         while(true){
             System.out.println(meniu);
@@ -95,6 +97,42 @@ public class Main {
                     int tip = Integer.parseInt(scanner.nextLine());
                     if(tip == 1){
                         service.afiseazaMancare();
+                        System.out.println("Introdu numarul mancarii careia vrei sa-i modifici pretul");
+                        int nr = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Seteaza noul pret");
+                        int p = Integer.parseInt(scanner.nextLine());
+                        service.modifMancare(nr, p);
+                    }
+                    else if(tip == 2){
+                        service.afiseazaBauturi();
+                        System.out.println("Introdu numarul bauturii careia vrei sa-i modifici pretul");
+                        int nr = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Seteaza noul pret");
+                        int p = Integer.parseInt(scanner.nextLine());
+                        service.modifBautura(nr, p);
+                    }
+                    else if (tip == 3){
+                        service.afiseazaTigari();
+                        System.out.println("Introdu numarul tigarilor carora vrei sa le modifici pretul");
+                        int nr = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Seteaza noul pret");
+                        int p = Integer.parseInt(scanner.nextLine());
+                        service.modifTigari(nr, p);
+                    }
+                    else{
+                        System.out.println("Tip invalid!");
+                    }
+                    auditService.logNewAction("Produs eliminat din meniu");
+                }
+                case 4 -> {
+                    System.out.println("""
+                            Alegeti tipul de produs:
+                            1) Mancare
+                            2) Bautura
+                            3) Tigari""");
+                    int tip = Integer.parseInt(scanner.nextLine());
+                    if(tip == 1){
+                        service.afiseazaMancare();
                         System.out.println("Introdu numarul mancarii eliminate");
                         int nr = Integer.parseInt(scanner.nextLine());
                         service.elimMancare(nr);
@@ -116,7 +154,7 @@ public class Main {
                     }
                     auditService.logNewAction("Produs eliminat din meniu");
                 }
-                case 4 -> {
+                case 5 -> {
                     System.out.println("Introdu numele, prenumele si varsta, postul si salariul angajatului:");
                     String dataAngajat = scanner.nextLine();
                     String[] fragments = dataAngajat.split(" ");
@@ -130,7 +168,7 @@ public class Main {
                     service.addAngajat(angajat);
                     auditService.logNewAction("Angajat adaugat");
                 }
-                case 5 -> {
+                case 6 -> {
                     System.out.println(
                             "Introdu numele, prenumele, varsta si tipul de plata a clientului(cash sau card):");
                     String dataClient = scanner.nextLine();
@@ -146,26 +184,26 @@ public class Main {
                     auditService.logNewAction("Client adaugat");
 
                 }
-                case 6 -> {
+                case 7 -> {
                     service.afisareAngajati();
                     auditService.logNewAction("Afisare angajati");
                 }
-                case 7 -> {
+                case 8 -> {
                     service.listaAngajati();
                     System.out.println("Introdu numarul angajatului eliminat");
                     int nr = Integer.parseInt(scanner.nextLine());
                     service.elimAngajat(nr);
                     auditService.logNewAction("Angajat eliminat");
                 }
-                case 8 -> {
+                case 9 -> {
                     service.afiseazaBonuri();
                     auditService.logNewAction("Afisare bonuri");
                 }
-                case 9 -> {
+                case 10 -> {
                     System.out.println(service.ceaMaiMareComanda());
                     auditService.logNewAction("Afisare cea mai mare comanda");
                 }
-                case 10 -> {
+                case 11 -> {
                     service.sumaBonuri();
                     auditService.logNewAction("Afisare suma bonuri");
                 }

@@ -7,6 +7,12 @@ import Model.Client;
 import Model.Mancare;
 import Model.Produs;
 import Model.Tigari;
+import repository.actions.BauturaRepository;
+import repository.actions.MancareRepository;
+import repository.actions.TigariRepository;
+import repository.actionsImpl.BauturaRepositoryImpl;
+import repository.actionsImpl.MancareRepositoryImpl;
+import repository.actionsImpl.TigariRepositoryImpl;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
@@ -15,10 +21,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Service {
+    private static MancareRepository mancareRepository = new MancareRepositoryImpl();
+    private static BauturaRepository bauturaRepository = new BauturaRepositoryImpl();
+    private static TigariRepository tigariRepository = new TigariRepositoryImpl();
     private static AngajatService angajatService = AngajatService.getInstance();
-    private static List<Bautura> bauturi = new ArrayList<>();
-    private static List<Mancare> mancare = new ArrayList<>();
-    private static List<Tigari> tigari = new ArrayList<>();
+    private static List<Bautura> bauturi = bauturaRepository.getAllBautura();
+    private static List<Mancare> mancare = mancareRepository.getAllMancare();
+    private static List<Tigari> tigari = tigariRepository.getAllTigari();
     private static List<Angajat> angajati = angajatService.getAngajati();
     private static List<Bon> bonuri = new ArrayList<>();
 
@@ -41,16 +50,19 @@ public class Service {
 
     public void addMancare(Mancare m){
         mancare.add(m);
+        mancareRepository.addMancare(m);
         System.out.println("Mancare adaugata.");
     }
 
     public void addBautura(Bautura b){
         bauturi.add(b);
+        bauturaRepository.addBautura(b);
         System.out.println("Bautura adaugata.");
     }
 
     public void addTigari(Tigari t){
         tigari.add(t);
+        tigariRepository.addTigari(t);
         System.out.println("Tigari adaugate.");
     }
 
@@ -78,17 +90,38 @@ public class Service {
         }
     }
 
+    public void modifMancare(int nr, int p){
+        mancareRepository.editMancare(mancare.get(nr), p);
+        mancare.get(nr).setPret(p);
+        System.out.println("Pretul mancarii a fost modificat.");
+    }
+
+    public void modifBautura(int nr, int p){
+        bauturaRepository.editBautura(bauturi.get(nr), p);
+        bauturi.get(nr).setPret(p);
+        System.out.println("Pretul bauturii a fost modificat.");
+    }
+
+    public void modifTigari(int nr, int p){
+        tigariRepository.editTigari(tigari.get(nr), p);
+        tigari.get(nr).setPret(p);
+        System.out.println("Pretul tigarilor a fost modificat.");
+    }
+
     public void elimMancare(int nr){
+        mancareRepository.deleteMancare(mancare.get(nr));
         mancare.remove(nr);
         System.out.println("Mancare eliminata din meniu.");
     }
 
     public void elimBautura(int nr){
+        bauturaRepository.deleteBautura(bauturi.get(nr));
         bauturi.remove(nr);
         System.out.println("Bautura eliminata din meniu.");
     }
 
     public void elimTigari(int nr){
+        tigariRepository.deleteTigari(tigari.get(nr));
         tigari.remove(nr);
         System.out.println("Tigari eliminate din meniu.");
     }
