@@ -14,3 +14,5 @@ Programul poate fi folosit pentru un restaurant, avand urmatoarele optiuni:
 9) Afiseaza toate bonurile
 10) Afiseaza cea mai mare comanda
 11) Afiseaza suma totala a bonurilor
+
+Programul e conectat prin JDBC la o baza de date din MySQL Workbench.
