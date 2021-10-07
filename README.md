@@ -1,4 +1,4 @@
-# ProiectPAO
+# ProiectPAO - Programare Avanasata pe Obiecte
 
 Programul poate fi folosit pentru un restaurant, avand urmatoarele optiuni:
 
